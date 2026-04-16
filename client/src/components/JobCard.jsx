@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const JobCard = ({ job }) => {
   return (
@@ -23,9 +24,12 @@ const JobCard = ({ job }) => {
         </span>
       </div>
 
-      <button className="mt-6 inline-flex items-center justify-center rounded-full bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700">
-        Apply now
-      </button>
+      <Link
+        to={`/job/${job.id}`}
+        className="mt-6 inline-flex items-center justify-center rounded-full bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700"
+      >
+        View Details
+      </Link>
     </article>
   )
 }

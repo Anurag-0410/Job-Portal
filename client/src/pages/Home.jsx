@@ -96,7 +96,6 @@ const Home = () => {
                 Companies hiring top developers
               </h2>
             </div>
-
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
               {companies.map((company) => (
                 <div
@@ -106,6 +105,29 @@ const Home = () => {
                   {company.name}
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-20 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 text-center">
+              <p className="text-sm uppercase tracking-[0.32em] text-slate-500">
+                Jobs posted
+              </p>
+              <p className="mt-4 text-4xl font-semibold text-slate-900">256+</p>
+            </div>
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 text-center">
+              <p className="text-sm uppercase tracking-[0.32em] text-slate-500">
+                Company partners
+              </p>
+              <p className="mt-4 text-4xl font-semibold text-slate-900">52</p>
+            </div>
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 text-center">
+              <p className="text-sm uppercase tracking-[0.32em] text-slate-500">
+                Applications sent
+              </p>
+              <p className="mt-4 text-4xl font-semibold text-slate-900">1.2k</p>
             </div>
           </div>
         </section>
