@@ -1,10 +1,25 @@
+import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { jobs } from '../data/jobs'
+import { useUser } from '../context/UserContext'
 
 const JobDetail = () => {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { user } = useUser()
+  const [showApply, setShowApply] = useState(false)
+  const [applied, setApplied] = useState(false)
+  
   const job = jobs.find((j) => j.id === parseInt(id))
+
+  const handleApply = (e) => {
+    e.preventDefault()
+    setApplied(true)
+    setTimeout(() => {
+      setShowApply(false)
+      setApplied(false)
+    }, 2000)
+  }
 
   if (!job) {
     return (
@@ -78,11 +93,90 @@ const JobDetail = () => {
             </ul>
           </div>
 
-          <button className="mt-8 rounded-full bg-indigo-600 px-8 py-4 text-lg font-semibold text-white hover:bg-indigo-700">
+          <button 
+            onClick={() => user ? setShowApply(true) : navigate('/login')}
+            className="mt-8 rounded-full bg-indigo-600 px-8 py-4 text-lg font-semibold text-white hover:bg-indigo-700"
+          >
             Apply Now
           </button>
         </div>
       </section>
+
+      {/* Apply Modal */}
+      {showApply && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="mx-auto w-full max-w-md rounded-3xl border border-slate-200 bg-white p-8 shadow-xl">
+            {!applied ? (
+              <>
+                <h2 className="text-2xl font-semibold text-slate-900">Apply for {job.title}</h2>
+                <p className="mt-2 text-slate-600">at {job.company}</p>
+                
+                <form onSubmit={handleApply} className="mt-6 space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700">Full Name</label>
+                    <input
+                      type="text"
+                      defaultValue={user?.name}
+                      className="mt-2 w-full rounded-full border border-slate-200 bg-white px-4 py-3 outline-none focus:border-indigo-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700">Email</label>
+                    <input
+                      type="email"
+                      defaultValue={user?.email}
+                      className="mt-2 w-full rounded-full border border-slate-200 bg-white px-4 py-3 outline-none focus:border-indigo-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700">Phone</label>
+                    <input
+                      type="tel"
+                      className="mt-2 w-full rounded-full border border-slate-200 bg-white px-4 py-3 outline-none focus:border-indigo-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700">Cover Letter</label>
+                    <textarea
+                      rows="4"
+                      className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-indigo-500"
+                      placeholder="Tell us why you're a great fit..."
+                    />
+                  </div>
+                  <div className="flex gap-4">
+                    <button
+                      type="button"
+                      onClick={() => setShowApply(false)}
+                      className="flex-1 rounded-full border border-slate-200 py-3 font-semibold text-slate-700 hover:bg-slate-100"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 rounded-full bg-indigo-600 py-3 font-semibold text-white hover:bg-indigo-700"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </>
+            ) : (
+              <div className="text-center">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+                  <svg className="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h2 className="text-2xl font-semibold text-slate-900">Application Sent!</h2>
+                <p className="mt-2 text-slate-600">We'll review your application and get back to you soon.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </main>
   )
 }
