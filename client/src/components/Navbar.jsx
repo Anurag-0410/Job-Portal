@@ -14,6 +14,8 @@ const Navbar = () => {
       <ul className='flex gap-8'>
         <li><Link to="/" className='text-slate-600 hover:text-black'>Home</Link></li>
         <li><Link to="/jobs" className='text-slate-600 hover:text-black'>Jobs</Link></li>
+        {user?.role === 'admin' && <li><Link to="/admin" className='text-slate-600 hover:text-black'>Admin</Link></li>}
+        {user && user.role !== 'admin' && <li><Link to="/dashboard" className='text-slate-600 hover:text-black'>Dashboard</Link></li>}
       </ul>
       <div className='flex items-center gap-4'>
         {user ? (

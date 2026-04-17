@@ -6,6 +6,8 @@ import Jobs from './pages/Jobs'
 import JobDetail from './pages/JobDetail'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Dashboard from './pages/Dashboard'
+import Admin from './pages/Admin'
 import Footer from './components/Footer'
 import './App.css'
 
@@ -21,6 +23,8 @@ function App() {
             <Route path="/job/:id" element={<JobDetail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
           <Footer />
         </div>
